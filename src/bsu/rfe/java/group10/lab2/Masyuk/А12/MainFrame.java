@@ -15,8 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-@SuppressWarnings("serial") // Отключение предупреждений
-
 // Главный класс приложения, он же класс фрейма
 public class MainFrame extends JFrame {
     // Размеры окна приложения в виде констант
@@ -27,8 +25,7 @@ public class MainFrame extends JFrame {
     private JTextField textFieldX;
     private JTextField textFieldY;
     private JTextField textFieldZ;
-    private JButton MC = new JButton("MC");
-    private JButton MPlus = new JButton("M+");
+
     private Double temp = 0.0;
     // Текстовое поле для отображения результата,
     // как компонент, совместно используемый в различных методах
@@ -41,7 +38,7 @@ public class MainFrame extends JFrame {
     // Вспомогательный метод для добавления кнопок на панель
     private void addRadioButton(String buttonName, final int formulaId) {
         JRadioButton button = new JRadioButton(buttonName);
-        button.addActionListener(new ActionListener() {
+        button.addActionListener(new ActionListener() {//параметр - анонимный класс
             public void actionPerformed(ActionEvent ev) {
                 MainFrame.this.formulaId = formulaId;
                 //imagePane.updateUI();
@@ -52,21 +49,28 @@ public class MainFrame extends JFrame {
     }
     // Конструктор класса
     public MainFrame() {
-        super("Вычисление формулы");
+        super("Вычисление формулы");//конструктор JFrame
+
         setSize(WIDTH, HEIGHT);
         Formula f = new Formula();
         Toolkit kit = Toolkit.getDefaultToolkit();
         // Отцентрировать окно приложения на экране
         setLocation((kit.getScreenSize().width - WIDTH)/2,
                 (kit.getScreenSize().height - HEIGHT)/2);
+
         hboxFormulaType.add(Box.createHorizontalGlue());
+
         addRadioButton("Формула 1", 1);
         addRadioButton("Формула 2", 2);
+
         radioButtons.setSelected(
-                radioButtons.getElements().nextElement().getModel(), true);
+                radioButtons.getElements().nextElement().getModel(), true);//??
+
         hboxFormulaType.add(Box.createHorizontalGlue());
+
         hboxFormulaType.setBorder(
                 BorderFactory.createLineBorder(Color.YELLOW));
+
         // Создать область с полями ввода для X, Y, Z
         JLabel labelForX = new JLabel("X:");
         textFieldX = new JTextField("0", 10);
@@ -77,42 +81,46 @@ public class MainFrame extends JFrame {
         JLabel labelForZ = new JLabel("Z:");
         textFieldZ = new JTextField("0", 10);
         textFieldZ.setMaximumSize(textFieldZ.getPreferredSize());
+
         Box hboxVariables = Box.createHorizontalBox();
         hboxVariables.setBorder(
                 BorderFactory.createLineBorder(Color.RED));
         hboxVariables.add(labelForX);
-        hboxVariables.add(Box.createHorizontalStrut(10));
+        hboxVariables.add(Box.createHorizontalStrut(10));//отступ между лейблом и полем
         hboxVariables.add(textFieldX);
-        hboxVariables.add(Box.createHorizontalGlue());
-        hboxVariables.add(Box.createHorizontalStrut(100));
         hboxVariables.add(Box.createHorizontalGlue());
         hboxVariables.add(labelForY);
         hboxVariables.add(Box.createHorizontalStrut(10));
         hboxVariables.add(textFieldY);
-        hboxVariables.add(Box.createHorizontalGlue());
-        hboxVariables.add(Box.createHorizontalStrut(100));
         hboxVariables.add(Box.createHorizontalGlue());
         hboxVariables.add(labelForZ);
         hboxVariables.add(Box.createHorizontalStrut(10));
         hboxVariables.add(textFieldZ);
         // Создать область для вывода результата
         JLabel labelForResult = new JLabel("Результат:");
+<<<<<<< develop
         //labelResult = new JLabel("0");
         textFieldResult = new JTextField("0", 13);
+=======
+
+        textFieldResult = new JTextField("0", 15);
+>>>>>>> local
         textFieldResult.setMaximumSize(
                 textFieldResult.getPreferredSize());
+
         Box hboxResult = Box.createHorizontalBox();
         hboxResult.add(Box.createHorizontalGlue());
         hboxResult.add(labelForResult);
         hboxResult.add(Box.createHorizontalStrut(10));
         hboxResult.add(textFieldResult);
         hboxResult.add(Box.createHorizontalGlue());
+
         hboxResult.setBorder(BorderFactory.createLineBorder(Color.BLUE));
         // Создать область для кнопок
         JButton buttonCalc = new JButton("Вычислить");
         //Добавление события нажатия кнопки buttonCalc
         buttonCalc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
+            public void actionPerformed(ActionEvent ev) {//переопределяем метод
                 try {
                     Double x = Double.parseDouble(textFieldX.getText());
                     Double y = Double.parseDouble(textFieldY.getText());
@@ -140,6 +148,13 @@ public class MainFrame extends JFrame {
                 textFieldResult.setText("0");
             }
         });
+<<<<<<< develop
+=======
+
+        JButton MC = new JButton("MC");
+        JButton MPlus = new JButton("M+");
+
+>>>>>>> local
         //Обработчик событий нажатия на кнопку
         MC.addActionListener(new ActionListener() {
             @Override
@@ -167,6 +182,7 @@ public class MainFrame extends JFrame {
         hboxButtons.add(Box.createHorizontalGlue());
         hboxButtons.setBorder(
                 BorderFactory.createLineBorder(Color.GREEN));
+
         // Связать области воедино в компоновке BoxLayout
         Box contentBox = Box.createVerticalBox();
         contentBox.add(Box.createVerticalGlue());
@@ -175,9 +191,9 @@ public class MainFrame extends JFrame {
         contentBox.add(hboxResult);
         contentBox.add(hboxButtons);
         contentBox.add(Box.createVerticalGlue());
-        getContentPane().add(contentBox, BorderLayout.CENTER);
-        //pack();
+        getContentPane().add(contentBox, BorderLayout.CENTER);//устанавливаем в центр
     }
+
     // Главный метод класса
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
